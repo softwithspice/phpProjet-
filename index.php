@@ -47,7 +47,7 @@
         <h1>
             Authentifier
         </h1>
-    <label for="">z
+    <label for="">
         Login:
     </label> <br>
     <input type="text" name="login" id=""> <br>

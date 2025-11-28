@@ -17,14 +17,15 @@ while ($donnees = $reponse->fetch())
     }
          else if ($log==$loginAdmin && $pwd==$pwdAdmin){
                if ($donnees['role']=="admin"){
-        echo"hi admin";
-         echo " dashboard admin";
+       header("location:dashboard.php");
 }
 elseif($donnees['role']=="étudiant")
           {
-        echo"hi étudiant"; }
+        echo"hi étudiant"; 
+    }
          }
     }
-    echo"<button type="reset" onclick="window.location.href='logout.php'" >Log Out</button></div>"
+    echo"<button type='reset' onclick=window.location.href='logout.php' >Log Out</button></div>";
+
       
 
