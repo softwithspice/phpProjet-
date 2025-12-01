@@ -17,7 +17,7 @@ while ($donnees = $reponse->fetch())
     }
          else if ($log==$loginAdmin && $pwd==$pwdAdmin){
                if ($donnees['role']=="admin"){
-       header("location:dashboard.php");
+       header("location:menu.php");
 }
 elseif($donnees['role']=="étudiant")
           {
