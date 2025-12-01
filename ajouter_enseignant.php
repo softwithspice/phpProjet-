@@ -45,7 +45,7 @@
     }
 </style>
 <body>
-    <form action="" method="get">
+    <form action="" method="post">
         <h1>
             Ajouter un enseignant
         </h1>
@@ -61,10 +61,6 @@
         Prenom:
     </label> <br>
     <input type="text" name="prenom" id=""> <br>
-    <!-- <label for="">
-        Classe:
-    </label> <br>
-    <input type="text" name="classe" id=""> <br> -->
     <div class="buttons">
     <button type="submit">Ajouter enseignant</button>
 
@@ -74,20 +70,25 @@
 
 <?php
 require "connexion.php";
-if (isset($_GET["cin"])){
-$cin=$_GET["cin"];
-$nom=$_GET['nom'];
-$prenom=$_GET['prenom'];
-// $classe=$_GET['classe'];
+if (isset($_POST["cin"])){
+$cin=$_POST["cin"];
+$nom=$_POST['nom'];
+$prenom=$_POST['prenom'];
 
-// $reponse = $connexion->exec('INSERT INTO `etudiant`
-//  VALUES ($nce,$nom,$prenom,$classe)');
-$stmt = $connexion->prepare("INSERT INTO enseignant (cin, nom, prenom) 
-                                 VALUES (?, ?, ?)");
+$rqtUser=$connexion->prepare("insert into user (login,mot_de_passe,role) values (?,?,?)");
+$resultUser=$rqtUser->execute([$nom,$nom.$prenom,"enseignant"]);
+if ($resultUser){
+    $idUser=$connexion->lastInsertId();
+    $rqtensg = $connexion->prepare("INSERT INTO enseignant (cin, nom, prenom,user_id) 
+                                 VALUES (?, ?, ?,?)");
     
-    $result = $stmt->execute([$cin, $nom, $prenom]);
+    $resultensg = $rqtensg->execute([$cin, $nom, $prenom,$idUser]);
 
-if($result){
+if($resultensg){
     echo"<p>ajout éffectuer avec succées</p>";
 }
 }
+
+
+}
+  echo"<button type='reset' onclick=window.location.href='logout.php' >Log Out</button></div>";

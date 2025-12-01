@@ -43,7 +43,7 @@
     }
 </style>
 <body>
-    <form action="login.php" method="get">
+    <form action="login.php" method="post">
         <h1>
             Authentifier
         </h1>

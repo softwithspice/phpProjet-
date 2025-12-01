@@ -21,3 +21,4 @@ while ($donnees = $reponse->fetch())
 
 }
 echo"</table>";
+  echo"<button type='reset' onclick=window.location.href='logout.php' >Log Out</button></div>";

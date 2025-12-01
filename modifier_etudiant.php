@@ -40,23 +40,8 @@
     }
 </style>
 <body>
-    <?php
-require "connexion.php";
-if (isset($_GET['nce'])) {
-    $nce = $_GET['nce'];
-}
-if (isset($_GET["nom"]) && isset($_GET["prenom"]) && isset($_GET["classe"])){
-    $nom=$_GET["nom"];
-$prenom=$_GET["prenom"];
-$classe=$_GET["classe"];
-    $req=$connexion->prepare('UPDATE etudiant SET nom=?, prenom=?, classe=? WHERE NCE=?');
-$reponse=$req->execute([$nom,$prenom,$classe,$nce]);
-if ($reponse){
-    echo"<p>modification effectué</p>";
-}
-}
-?>
-    <form action="" method="get">
+
+    <form action="" method="post">
         <h1>
             Modifer étudiant
         </h1>
@@ -78,4 +63,22 @@ if ($reponse){
             <button type="submit">Modifier étudiant</button>
     </form>
 </body>
+    <?php
+require "connexion.php";
+if (isset($_POST['nce'])) {
+    $nce = $_POST['nce'];
+}
+if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["classe"])){
+    $nom=$_POST["nom"];
+$prenom=$_POST["prenom"];
+$classe=$_POST["classe"];
+    $req=$connexion->prepare('UPDATE etudiant SET nom=?, prenom=?, classe=? WHERE NCE=?');
+$reponse=$req->execute([$nom,$prenom,$classe,$nce]);
+if ($reponse){
+    echo"<p>modification effectué</p>";
+}
+}
+  echo"<button type='reset' onclick=window.location.href='logout.php' >Log Out</button></div>";
+
+?>
 </html>

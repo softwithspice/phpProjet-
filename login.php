@@ -1,31 +1,39 @@
 <?php
 
 require "connexion.php";
-$log=$_GET["login"];
-$pwd=$_GET["pwd"];
+$log=$_POST["login"];
+$pwd=$_POST["pwd"];
 
 $reponse = $connexion->query('SELECT * FROM user');
 while ($donnees = $reponse->fetch())
 { 
-    session_start();
-
-    // console.log($donnees);
-    $loginAdmin=$donnees ['login'];
-    $pwdAdmin=$donnees['mot_de_passe'];
-    if ($log==$loginAdmin && $pwd!=$pwdAdmin){
+    // session_start();
+    $loginUser=$donnees ['login'];
+    $pwdUser=$donnees['mot_de_passe'];
+    if ($log==$loginUser && $pwd!=$pwdUser){
    echo " vérifier vos données ";
+   exit;
     }
-         else if ($log==$loginAdmin && $pwd==$pwdAdmin){
+     else if ($log==$loginUser && $pwd==$pwdUser){
                if ($donnees['role']=="admin"){
-       header("location:menu.php");
-}
-elseif($donnees['role']=="étudiant")
-          {
-        echo"hi étudiant"; 
-    }
+               header("location:dashboard.php");
+               exit;
+                                             }
+          elseif($donnees['role']=="etudiant") {
+          header("location:changerPWD.php?login=". $loginUser."&pwd=".$pwdUser);
+                          exit;
+                         }
+                         elseif($donnees['role']=="enseignant"){
+                header("location:changerPWD.php?login=". $loginUser."&pwd=".$pwdUser);
+exit;
+
+                         }
+         
          }
     }
-    echo"<button type='reset' onclick=window.location.href='logout.php' >Log Out</button></div>";
+     echo"désolé vous étes pas inscrit <br> 
+                              conntacter Admin";
+  
 
       
 
