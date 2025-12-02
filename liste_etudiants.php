@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: index.php");
+    exit;
+}
 
 require "connexion.php";
 $reponse = $connexion->query('SELECT * FROM etudiant');
